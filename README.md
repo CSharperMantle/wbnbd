@@ -1,8 +1,8 @@
 # wbnbd
 
-A demonstrative app for trying out agentic development (or colloquially, Vibe Coding).
+我帮你百度 (Wo Bang Ni Baidu, Let Me Baidu That For You) - A demonstrative app for trying out agentic development (or colloquially, Vibe Coding).
 
-The idea of this app is from <https://letmegooglethat.com/>.
+The idea of this app is from <https://letmegooglethat.com/>. It is neither affiliated with letmegooglethat.com nor Baidu Inc.
 
 ## Build
 
