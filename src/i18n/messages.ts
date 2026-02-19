@@ -3,8 +3,7 @@ export const messages = {
         title: "WBNBD",
         subtitle: "Let Me Baidu That For You",
         placeholder: "Type your search query...",
-        enginePlaceholder:
-            "Custom search engine URL (use @QUERY@ as placeholder)",
+        enginePlaceholder: "Custom search engine URL (use @QUERY@ as placeholder)",
         getLink: "Get Link",
         search: "Search",
         step1: "Step 1: Move to the search box...",

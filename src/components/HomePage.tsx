@@ -29,10 +29,7 @@ export const HomePage = () => {
         inputRef,
         buttonRef,
         onComplete: () => {
-            const url = searchEngine.replace(
-                "@QUERY@",
-                encodeURIComponent(query!)
-            )
+            const url = searchEngine.replace("@QUERY@", encodeURIComponent(query!))
             window.location.href = url
         },
     })
@@ -66,9 +63,7 @@ export const HomePage = () => {
                         ref={inputRef}
                         type="text"
                         value={isPlayback ? displayText : inputValue}
-                        onChange={(e) =>
-                            !isPlayback && setInputValue(e.target.value)
-                        }
+                        onChange={(e) => !isPlayback && setInputValue(e.target.value)}
                         placeholder={t.placeholder}
                         className="flex-1 rounded-full border border-gray-300 px-4 py-3 focus:border-blue-500 focus:outline-none"
                         readOnly={isPlayback}
@@ -101,10 +96,7 @@ export const HomePage = () => {
                             readOnly
                             className="flex-1 bg-transparent text-sm"
                         />
-                        <button
-                            onClick={handleCopy}
-                            className="text-gray-600 hover:text-blue-500"
-                        >
+                        <button onClick={handleCopy} className="text-gray-600 hover:text-blue-500">
                             {copied ? <Check size={18} /> : <Copy size={18} />}
                         </button>
                     </div>
@@ -119,9 +111,7 @@ export const HomePage = () => {
                 )}
             </div>
 
-            {isPlayback && (
-                <Cursor position={cursorPos} visible={phase !== "idle"} />
-            )}
+            {isPlayback && <Cursor position={cursorPos} visible={phase !== "idle"} />}
         </div>
     )
 }

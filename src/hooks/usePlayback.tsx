@@ -27,9 +27,7 @@ export const usePlayback = ({
     useEffect(() => {
         if (!enabled || !isClient()) return
 
-        const prefersReducedMotion = window.matchMedia(
-            "(prefers-reduced-motion: reduce)"
-        ).matches
+        const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
         if (prefersReducedMotion) {
             onComplete()
             return
