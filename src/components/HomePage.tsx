@@ -161,7 +161,7 @@ export const HomePage = () => {
                         />
                     )}
 
-                    {generatedUrl && (
+                    {!isPlayback && generatedUrl && (
                         <div id="app-generated-box">
                             <input
                                 type="text"
