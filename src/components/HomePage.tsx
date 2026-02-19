@@ -3,8 +3,7 @@
 import { useMotionValue } from "framer-motion"
 import { Check, Copy, Search } from "lucide-react"
 import { useLocale, useTranslations } from "next-intl"
-import { useQueryState } from "nuqs"
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 import Cursor from "@/components/Cursor"
 import usePlayback from "@/hooks/usePlayback"
@@ -16,12 +15,32 @@ const COPY_TIMEOUT = 2000
 
 const APP_BASE_PATH = normalizeBasePath(process.env.NEXT_PUBLIC_BASE_PATH)
 
+interface PlaybackState {
+    query: string
+    engine: string | null
+}
+
+const parseHashPlaybackState = (): PlaybackState => {
+    if (typeof window === "undefined") {
+        return { query: "", engine: null }
+    }
+
+    const rawHash = window.location.hash.startsWith("#")
+        ? window.location.hash.slice(1)
+        : window.location.hash
+
+    const params = new URLSearchParams(rawHash)
+    return {
+        query: params.get("q") ?? "",
+        engine: params.get("e"),
+    }
+}
+
 export const HomePage = () => {
     const t = useTranslations("HomePage")
     const locale = useLocale()
 
-    const [query] = useQueryState("q")
-    const [engine] = useQueryState("e")
+    const [playbackState, setPlaybackState] = useState<PlaybackState>({ query: "", engine: null })
 
     const [inputValue, setInputValue] = useState("")
     const [engineValue, setEngineValue] = useState("")
@@ -34,18 +53,34 @@ export const HomePage = () => {
     const cursorX = useMotionValue(20)
     const cursorY = useMotionValue(20)
 
-    const isPlayback = !!query
-    const searchEngine = engine ?? DEFAULT_ENGINE
+    const isPlayback = !!playbackState.query
+    const searchEngine = playbackState.engine ?? DEFAULT_ENGINE
+
+    useEffect(() => {
+        const syncFromHash = () => {
+            setPlaybackState(parseHashPlaybackState())
+        }
+
+        syncFromHash()
+        window.addEventListener("hashchange", syncFromHash)
+
+        return () => {
+            window.removeEventListener("hashchange", syncFromHash)
+        }
+    }, [])
 
     const { phase, displayText, buttonVisualState } = usePlayback({
-        query: query ?? "",
+        query: playbackState.query,
         enabled: isPlayback,
         inputRef,
         buttonRef,
         cursorX,
         cursorY,
         onComplete: () => {
-            const url = searchEngine.replaceAll(QUERY_PLACEHOLDER, encodeURIComponent(query ?? ""))
+            const url = searchEngine.replaceAll(
+                QUERY_PLACEHOLDER,
+                encodeURIComponent(playbackState.query)
+            )
             window.location.href = url
         },
     })
@@ -57,11 +92,9 @@ export const HomePage = () => {
         if (engineValue.trim() && engineValue !== DEFAULT_ENGINE) {
             params.set("e", engineValue)
         }
-        const url = new URL(
-            `${APP_BASE_PATH}/${locale}/?${params.toString()}`,
-            window.location.origin
-        ).toString()
-        setGeneratedUrl(url)
+        const url = new URL(`${APP_BASE_PATH}/${locale}/`, window.location.origin)
+        url.hash = params.toString()
+        setGeneratedUrl(url.toString())
     }
 
     const handleCopy = async () => {

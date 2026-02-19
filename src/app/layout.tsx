@@ -1,6 +1,5 @@
 import type { Metadata } from "next"
 import { Geist_Mono, Noto_Sans, Noto_Sans_SC } from "next/font/google"
-import { NuqsAdapter } from "nuqs/adapters/next/app"
 
 import "./globals.css"
 
@@ -39,7 +38,7 @@ export default function RootLayout({
             <body
                 className={`${notoSans.variable} ${notoSansSC.variable} ${geistMono.variable} antialiased`}
             >
-                <NuqsAdapter>{children}</NuqsAdapter>
+                {children}
             </body>
         </html>
     )
