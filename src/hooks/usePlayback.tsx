@@ -101,7 +101,7 @@ export default function usePlayback({
                 await animateCursorTo(
                     buttonRect.left + buttonRect.width / 2,
                     buttonRect.top + buttonRect.height / 2,
-                    3
+                    1.5
                 )
             }
             if (cancelled) return

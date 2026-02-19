@@ -3,7 +3,7 @@
 import { useMotionValue } from "framer-motion"
 import { Check, Copy, Search } from "lucide-react"
 import { useLocale, useTranslations } from "next-intl"
-import { useEffect, useRef, useState } from "react"
+import { SyntheticEvent, useEffect, useRef, useState } from "react"
 
 import Cursor from "@/components/Cursor"
 import usePlayback from "@/hooks/usePlayback"
@@ -85,7 +85,9 @@ export const HomePage = () => {
         },
     })
 
-    const handleGenerate = () => {
+    const handleGenerate = (ev: SyntheticEvent) => {
+        ev.preventDefault()
+
         if (!inputValue.trim()) return
         const params = new URLSearchParams()
         params.set("q", inputValue)
@@ -97,7 +99,9 @@ export const HomePage = () => {
         setGeneratedUrl(url.toString())
     }
 
-    const handleCopy = async () => {
+    const handleCopy = async (ev: SyntheticEvent) => {
+        ev.preventDefault()
+
         if (!generatedUrl) return
         await navigator.clipboard.writeText(generatedUrl)
         setCopied(true)
@@ -122,7 +126,7 @@ export const HomePage = () => {
             <main id="app-main">
                 <h1 id="app-title">{t("title")}</h1>
                 <h2 id="app-subtitle">{t("subtitle")}</h2>
-                <div id="app-form">
+                <form id="app-form">
                     <div id="app-search-bar">
                         <input
                             ref={inputRef}
@@ -132,6 +136,7 @@ export const HomePage = () => {
                             placeholder={t("placeholder")}
                             id="app-search-input"
                             readOnly={isPlayback}
+                            required={true}
                         />
                         <button
                             ref={buttonRef}
@@ -175,7 +180,7 @@ export const HomePage = () => {
                     )}
 
                     {isPlayback && phase !== "idle" && <p id="app-caption">{selectCaption()}</p>}
-                </div>
+                </form>
             </main>
 
             <footer id="app-footer">
