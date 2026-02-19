@@ -16,7 +16,7 @@ export const Cursor = ({ x, y, visible }: CursorProps) => {
     if (!visible) return null
     return (
         <motion.div className="pointer-events-none fixed z-50 top-0 left-0" style={{ x, y }}>
-            <Image src={cursorIcon} alt="Cursor" width={24} height={24} />
+            <Image src={cursorIcon} alt="Cursor" width={24} height={24} className="app-cursor" />
         </motion.div>
     )
 }

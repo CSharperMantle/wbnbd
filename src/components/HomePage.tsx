@@ -11,7 +11,6 @@ import { useLocale } from "@/i18n/useLocale"
 
 const QUERY_PLACEHOLDER = "@QUERY@"
 const DEFAULT_ENGINE = `https://www.baidu.com/s?wd=${QUERY_PLACEHOLDER}`
-
 const COPY_TIMEOUT = 2000
 
 export const HomePage = () => {
@@ -71,14 +70,14 @@ export const HomePage = () => {
             <p className="app-subtitle">{t.subtitle}</p>
 
             <div className="app-form">
-                <div className="app-search-row">
+                <div className="app-search-bar">
                     <input
                         ref={inputRef}
                         type="text"
                         value={isPlayback ? displayText : inputValue}
                         onChange={(e) => !isPlayback && setInputValue(e.target.value)}
                         placeholder={t.placeholder}
-                        className="app-input"
+                        className="app-search-input"
                         readOnly={isPlayback}
                     />
                     <button
@@ -87,10 +86,10 @@ export const HomePage = () => {
                         disabled={isPlayback}
                         data-hovered={buttonVisualState === "hover"}
                         data-clicked={buttonVisualState === "active"}
-                        className="app-button"
+                        className="app-search-button"
                     >
                         <Search size={18} />
-                        {isPlayback ? t.search : t.getLink}
+                        {t.search}
                     </button>
                 </div>
 
