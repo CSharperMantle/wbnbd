@@ -1,20 +1,21 @@
 "use client"
 
 import { motion } from "framer-motion"
+import type { MotionValue } from "framer-motion"
 
 interface CursorProps {
-    position: { x: number; y: number }
+    x: MotionValue<number>
+    y: MotionValue<number>
     visible: boolean
 }
 
-export const Cursor = ({ position, visible }: CursorProps) => {
+export const Cursor = ({ x, y, visible }: CursorProps) => {
     if (!visible) return null
 
     return (
         <motion.div
             className="pointer-events-none fixed z-50"
-            animate={{ x: position.x, y: position.y }}
-            transition={{ type: "spring", stiffness: 100, damping: 20 }}
+            style={{ x, y }}
         >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <path

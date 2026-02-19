@@ -3,6 +3,7 @@
 import { useQueryState } from "nuqs"
 import { useState, useRef } from "react"
 import { Search, Copy, Check } from "lucide-react"
+import { useMotionValue } from "framer-motion"
 import { Cursor } from "@/components/Cursor"
 import { usePlayback } from "@/hooks/usePlayback"
 import { useLocale } from "@/i18n/useLocale"
@@ -19,18 +20,23 @@ export const HomePage = () => {
     const [copied, setCopied] = useState(false)
     const inputRef = useRef<HTMLInputElement>(null)
     const buttonRef = useRef<HTMLButtonElement>(null)
+    const cursorX = useMotionValue(20)
+    const cursorY = useMotionValue(20)
 
     const isPlayback = !!query
     const searchEngine = engine || DEFAULT_ENGINE
 
-    const { phase, displayText, cursorPos } = usePlayback({
+    const { phase, displayText, buttonVisualState } = usePlayback({
         query: query || "",
         enabled: isPlayback,
         inputRef,
         buttonRef,
+        cursorX,
+        cursorY,
         onComplete: () => {
             const url = searchEngine.replace("@QUERY@", encodeURIComponent(query!))
-            window.location.href = url
+            // TODO: window.location.href = url
+            console.log(`Navigate to: ${url}`)
         },
     })
 
@@ -53,25 +59,28 @@ export const HomePage = () => {
     }
 
     return (
-        <div className="flex min-h-screen flex-col items-center justify-center bg-white p-4">
-            <h1 className="mb-8 text-4xl font-bold text-blue-600">{t.title}</h1>
-            <p className="mb-6 text-gray-500">{t.subtitle}</p>
+        <div className="app-shell">
+            <h1 className="app-title">{t.title}</h1>
+            <p className="app-subtitle">{t.subtitle}</p>
 
-            <div className="flex w-full max-w-xl flex-col gap-4">
-                <div className="flex gap-2">
+            <div className="app-form">
+                <div className="app-search-row">
                     <input
                         ref={inputRef}
                         type="text"
                         value={isPlayback ? displayText : inputValue}
                         onChange={(e) => !isPlayback && setInputValue(e.target.value)}
                         placeholder={t.placeholder}
-                        className="flex-1 rounded-full border border-gray-300 px-4 py-3 focus:border-blue-500 focus:outline-none"
+                        className="app-input"
                         readOnly={isPlayback}
                     />
                     <button
                         ref={buttonRef}
                         onClick={isPlayback ? undefined : handleGenerate}
-                        className="flex items-center gap-2 rounded-full bg-blue-500 px-6 py-3 text-white hover:bg-blue-600"
+                        disabled={isPlayback}
+                        data-hovered={buttonVisualState === "hover"}
+                        data-clicked={buttonVisualState === "active"}
+                        className="app-button"
                     >
                         <Search size={18} />
                         {isPlayback ? t.search : t.getLink}
@@ -84,26 +93,26 @@ export const HomePage = () => {
                         value={engineValue}
                         onChange={(e) => setEngineValue(e.target.value)}
                         placeholder={t.enginePlaceholder}
-                        className="rounded-full border border-gray-200 px-4 py-2 text-sm focus:border-blue-500 focus:outline-none"
+                        className="app-engine-input"
                     />
                 )}
 
                 {generatedUrl && (
-                    <div className="flex items-center gap-2 rounded-lg bg-gray-100 p-3">
+                    <div className="app-generated-box">
                         <input
                             type="text"
                             value={generatedUrl}
                             readOnly
-                            className="flex-1 bg-transparent text-sm"
+                            className="app-generated-input"
                         />
-                        <button onClick={handleCopy} className="text-gray-600 hover:text-blue-500">
+                        <button onClick={handleCopy} className="app-copy-button" aria-label="Copy link">
                             {copied ? <Check size={18} /> : <Copy size={18} />}
                         </button>
                     </div>
                 )}
 
                 {isPlayback && phase !== "idle" && (
-                    <p className="text-center text-gray-500">
+                    <p className="app-caption">
                         {phase === "moving" && t.step1}
                         {phase === "typing" && t.step2}
                         {phase === "clicking" && t.step3}
@@ -111,7 +120,7 @@ export const HomePage = () => {
                 )}
             </div>
 
-            {isPlayback && <Cursor position={cursorPos} visible={phase !== "idle"} />}
+            {isPlayback && <Cursor x={cursorX} y={cursorY} visible={phase !== "idle"} />}
         </div>
     )
 }
