@@ -14,7 +14,7 @@ export const Cursor = ({ x, y, visible }: CursorProps) => {
 
     return (
         <motion.div
-            className="pointer-events-none fixed z-50"
+            className="pointer-events-none fixed z-50 top-0 left-0"
             style={{ x, y }}
         >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">

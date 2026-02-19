@@ -63,12 +63,9 @@ export const usePlayback = ({
 
             const inputRect = inputRef.current?.getBoundingClientRect()
             if (inputRect) {
-                console.debug(
-                    `animateCursorTo(${inputRect.x + 16}, ${inputRect.y + inputRect.height / 2}, 0.85)`
-                )
                 await animateCursorTo(
-                    inputRect.x + 16,
-                    inputRect.y + inputRect.height / 2,
+                    inputRect.left + 16,
+                    inputRect.top + inputRect.height / 2,
                     0.85
                 )
             }
@@ -92,8 +89,8 @@ export const usePlayback = ({
                     `animateCursorTo(${buttonRect.x + buttonRect.width / 2}, ${buttonRect.y + buttonRect.height / 2}, 0.75)`
                 )
                 await animateCursorTo(
-                    buttonRect.x + buttonRect.width / 2,
-                    buttonRect.y + buttonRect.height / 2,
+                    buttonRect.left + buttonRect.width / 2,
+                    buttonRect.top + buttonRect.height / 2,
                     0.75
                 )
             }
