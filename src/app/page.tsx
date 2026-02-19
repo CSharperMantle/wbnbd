@@ -20,7 +20,7 @@ export default function Page() {
     }, [])
 
     return (
-        <main className="flex min-h-screen flex-col items-center justify-center gap-2 px-4 text-center text-sm text-slate-700">
+        <main id="landing-main">
             <p>Redirecting to your locale...</p>
             <p>
                 <a href={`${APP_BASE_PATH}/zh/`} className="underline">
