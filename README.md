@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# wbnbd
 
-## Getting Started
+A demonstrative app for trying out agentic development (or colloquially, Vibe Coding).
 
-First, run the development server:
+## Build
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```console
+$ pnpm install
+$ pnpm run build
+$ pnpm run start
+$ # or
+$ pnpm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Notes on LLM usage
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Commits involving agentic LLMs are highlighted with trailer `Assisted-by` with model name and provider. Often, the prompt to the LLM is also attached in the commit message.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Commits not marked with `Assisted-by` are written purely by a human.
 
-## Learn More
+An LLM assisted commit is as follows:
 
-To learn more about Next.js, take a look at the following resources:
+```console
+$ jj show --no-patch eae371c88bcf73ff45b51404301f5e7387cf1dd2
+Commit ID: eae371c88bcf73ff45b51404301f5e7387cf1dd2
+Change ID: nwxtprzkwrspusxqmqtvuuyktxpkqtwu
+Author   : Rong Bao <rong.bao@csmantle.top> (2026-02-19 14:14:46)
+Committer: Rong Bao <rong.bao@csmantle.top> (2026-02-19 14:20:49)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+    Add responsiveness to narrow screens
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+    Prompt:
 
-## Deploy on Vercel
+    ```plain-text
+    Currently, this page works well on desktop, but layouts awkwardly on mobile.
+    Please add responsive layout for mobile; On narrow screens, the Search Input
+    Box and Search Button should maintain a 3-to-1 ratio on the same row. Please
+    also adapt the link row to narrow screens.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+    The Search Button now will wrap on narrow screen. Please stop it from wrapping,
+    if needed it is okay to shrink out the Search Bar's space. The tooltip inside
+    Search Bar should truncate and show ellipsis (...) if overflowed.
+    ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+    Assisted-by: GPT-5.3-Codex (GitHub Copilot)
+```
+
+[/AGENTS.md](/AGENTS.md) contains the general instructions used throughout the whole process. Each prompt will have this file attached or referenced, depending on the specific agentic tool.
