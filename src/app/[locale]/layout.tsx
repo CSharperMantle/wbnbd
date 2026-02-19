@@ -25,5 +25,9 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
     setRequestLocale(locale)
     const messages = await getMessages()
 
-    return <NextIntlClientProvider locale={locale} messages={messages}>{children}</NextIntlClientProvider>
+    return (
+        <NextIntlClientProvider locale={locale} messages={messages}>
+            {children}
+        </NextIntlClientProvider>
+    )
 }
