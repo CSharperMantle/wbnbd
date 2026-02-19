@@ -2,6 +2,8 @@
 
 A demonstrative app for trying out agentic development (or colloquially, Vibe Coding).
 
+The idea of this app is from <https://letmegooglethat.com/>.
+
 ## Build
 
 ```console
@@ -13,6 +15,8 @@ $ pnpm run dev
 ```
 
 ## Notes on LLM usage
+
+For the initial sketching stage, [Crush](https://github.com/charmbracelet/crush) is used for an agent-centric workflow. Then, at the refining and refactoring stage, VS Code and GitHub Copilot are used for a human-centric workflow. Throughout the process, no "YOLO" or "Always approve" features are enabled.
 
 Commits involving agentic LLMs are highlighted with trailer `Assisted-by` with model name and provider. Often, the prompt to the LLM is also attached in the commit message.
 
@@ -46,3 +50,6 @@ Committer: Rong Bao <rong.bao@csmantle.top> (2026-02-19 14:20:49)
 ```
 
 [/AGENTS.md](/AGENTS.md) contains the general instructions used throughout the whole process. Each prompt will have this file attached or referenced, depending on the specific agentic tool.
+
+The whole journey took about ~3.5 hours, including the setup of third-party providers, writing prompts and documents, scaffolding, a relaxed lunch, and various manual refactor and correction.
+
