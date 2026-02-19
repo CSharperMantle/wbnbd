@@ -67,7 +67,7 @@ export const HomePage = () => {
     return (
         <div id="app-shell">
             <h1 id="app-title">{t.title}</h1>
-            <p id="app-subtitle">{t.subtitle}</p>
+            <h2 id="app-subtitle">{t.subtitle}</h2>
             <div id="app-form">
                 <div id="app-search-bar">
                     <input
