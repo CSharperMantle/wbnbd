@@ -105,7 +105,11 @@ export const HomePage = () => {
                             readOnly
                             className="app-generated-input"
                         />
-                        <button onClick={handleCopy} className="app-copy-button" aria-label="Copy link">
+                        <button
+                            onClick={handleCopy}
+                            className="app-copy-button"
+                            aria-label="Copy link"
+                        >
                             {copied ? <Check size={18} /> : <Copy size={18} />}
                         </button>
                     </div>
