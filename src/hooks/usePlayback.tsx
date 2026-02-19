@@ -55,20 +55,29 @@ export const usePlayback = ({
         }
 
         const startAnimation = async () => {
+            /*
+             * HACK: The animator gets inputRect's position on the fly. So we need to first show
+             * the note box. Otherwise the layout will change, and the fetched position will be
+             * stale.
+             */
+            setPhase("moving-to-input")
             cursorX.set(20)
             cursorY.set(20)
-            setButtonVisualState("idle")
-            setDisplayText("")
             await sleep(100)
             if (cancelled) return
-
-            setPhase("moving-to-input")
             const inputRect = inputRef.current?.getBoundingClientRect()
             if (inputRect) {
                 await animateCursorTo(
                     inputRect.left + 16,
-                    inputRect.top + inputRect.height / 2,
+                    inputRect.top + inputRect.height * 0.5,
                     1.5
+                )
+            }
+            if (inputRect) {
+                await animateCursorTo(
+                    inputRect.left + inputRect.width * 0.25,
+                    inputRect.top + inputRect.height * 0.75,
+                    1
                 )
             }
             if (cancelled) return
