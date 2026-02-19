@@ -13,6 +13,15 @@ const QUERY_PLACEHOLDER = "@QUERY@"
 const DEFAULT_ENGINE = `https://www.baidu.com/s?wd=${QUERY_PLACEHOLDER}`
 const COPY_TIMEOUT = 2000
 
+const normalizeBasePath = (value: string | undefined) => {
+    if (!value) return ""
+    const trimmed = value.trim()
+    if (!trimmed || trimmed === "/") return ""
+    return `/${trimmed.replace(/^\/+|\/+$/g, "")}`
+}
+
+const APP_BASE_PATH = normalizeBasePath(process.env.NEXT_PUBLIC_BASE_PATH)
+
 export const HomePage = () => {
     const { t } = useLocale()
 
@@ -53,7 +62,7 @@ export const HomePage = () => {
         if (engineValue.trim() && engineValue !== DEFAULT_ENGINE) {
             params.set("e", engineValue)
         }
-        const url = `${window.location.origin}/?${params.toString()}`
+        const url = new URL(`${APP_BASE_PATH}/?${params.toString()}`, window.location.origin).toString()
         setGeneratedUrl(url)
     }
 
