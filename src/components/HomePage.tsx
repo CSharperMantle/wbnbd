@@ -1,14 +1,18 @@
 "use client"
 
-import { useQueryState } from "nuqs"
-import { useState, useRef } from "react"
-import { Search, Copy, Check } from "lucide-react"
 import { useMotionValue } from "framer-motion"
+import { Check, Copy, Search } from "lucide-react"
+import { useQueryState } from "nuqs"
+import { useRef, useState } from "react"
+
 import { Cursor } from "@/components/Cursor"
 import { usePlayback } from "@/hooks/usePlayback"
 import { useLocale } from "@/i18n/useLocale"
 
-const DEFAULT_ENGINE = "https://www.baidu.com/s?wd=@QUERY@"
+const QUERY_PLACEHOLDER = "@QUERY@"
+const DEFAULT_ENGINE = `https://www.baidu.com/s?wd=${QUERY_PLACEHOLDER}`
+
+const COPY_TIMEOUT = 2000
 
 export const HomePage = () => {
     const { t } = useLocale()
@@ -28,17 +32,17 @@ export const HomePage = () => {
     const cursorY = useMotionValue(20)
 
     const isPlayback = !!query
-    const searchEngine = engine || DEFAULT_ENGINE
+    const searchEngine = engine ?? DEFAULT_ENGINE
 
     const { phase, displayText, buttonVisualState } = usePlayback({
-        query: query || "",
+        query: query ?? "",
         enabled: isPlayback,
         inputRef,
         buttonRef,
         cursorX,
         cursorY,
         onComplete: () => {
-            const url = searchEngine.replace("@QUERY@", encodeURIComponent(query!))
+            const url = searchEngine.replaceAll(QUERY_PLACEHOLDER, encodeURIComponent(query ?? ""))
             window.location.href = url
         },
     })
@@ -58,7 +62,7 @@ export const HomePage = () => {
         if (!generatedUrl) return
         await navigator.clipboard.writeText(generatedUrl)
         setCopied(true)
-        setTimeout(() => setCopied(false), 2000)
+        setTimeout(() => setCopied(false), COPY_TIMEOUT)
     }
 
     return (
