@@ -23,7 +23,7 @@ async function sleep(ms: number): Promise<void> {
     return new Promise((resolve) => setTimeout(resolve, ms))
 }
 
-export const usePlayback = ({
+export default function usePlayback({
     query,
     enabled,
     inputRef,
@@ -31,7 +31,7 @@ export const usePlayback = ({
     cursorX,
     cursorY,
     onComplete,
-}: UsePlaybackProps) => {
+}: UsePlaybackProps) {
     const [phase, setPhase] = useState<Phase>("idle")
     const [displayText, setDisplayText] = useState("")
     const [buttonVisualState, setButtonVisualState] = useState<ButtonVisualState>("idle")

@@ -12,7 +12,7 @@ interface CursorProps {
     visible: boolean
 }
 
-export const Cursor = ({ x, y, visible }: CursorProps) => {
+export default function Cursor({ x, y, visible }: CursorProps) {
     if (!visible) return null
     return (
         <motion.div className="pointer-events-none fixed z-50 top-0 left-0" style={{ x, y }}>

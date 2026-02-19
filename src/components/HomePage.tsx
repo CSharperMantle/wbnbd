@@ -6,8 +6,8 @@ import { useLocale, useTranslations } from "next-intl"
 import { useQueryState } from "nuqs"
 import { useRef, useState } from "react"
 
-import { Cursor } from "@/components/Cursor"
-import { usePlayback } from "@/hooks/usePlayback"
+import Cursor from "@/components/Cursor"
+import usePlayback from "@/hooks/usePlayback"
 import normalizeBasePath from "@/utils/normalizeBasePath"
 
 const QUERY_PLACEHOLDER = "@QUERY@"
