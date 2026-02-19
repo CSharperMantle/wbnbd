@@ -3,28 +3,8 @@
 @custom-variant light (@media (prefers-color-scheme: light));
 @custom-variant dark (@media (prefers-color-scheme: dark));
 
-:root {
-    --background: #f8fafc;
-    --foreground: #0f172a;
-}
-
-@theme inline {
-    --color-background: var(--background);
-    --color-foreground: var(--foreground);
-    --font-sans: var(--font-noto-sans), var(--font-noto-sans-sc), sans-serif;
-    --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-    :root {
-        --background: #020617;
-        --foreground: #f8fafc;
-    }
-}
-
 body {
-    background: var(--background);
-    color: var(--foreground);
+    @apply light:bg-slate-50 dark:bg-slate-950 light:text-slate-900 dark:text-slate-100;
     font-family: var(--font-noto-sans), var(--font-noto-sans-sc), sans-serif;
 }
 
@@ -86,6 +66,5 @@ body {
 }
 
 #app-cursor {
-    fill: var(--foreground);
-    color: var(--background);
+    @apply light:fill-slate-900 dark:fill-slate-100 light:text-slate-50 dark:text-slate-950;
 }
