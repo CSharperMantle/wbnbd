@@ -12,14 +12,18 @@ const DEFAULT_ENGINE = "https://www.baidu.com/s?wd=@QUERY@"
 
 export const HomePage = () => {
     const { t } = useLocale()
+
     const [query] = useQueryState("q")
     const [engine] = useQueryState("e")
+
     const [inputValue, setInputValue] = useState("")
     const [engineValue, setEngineValue] = useState("")
     const [generatedUrl, setGeneratedUrl] = useState<string | null>(null)
     const [copied, setCopied] = useState(false)
+
     const inputRef = useRef<HTMLInputElement>(null)
     const buttonRef = useRef<HTMLButtonElement>(null)
+
     const cursorX = useMotionValue(20)
     const cursorY = useMotionValue(20)
 
@@ -35,8 +39,7 @@ export const HomePage = () => {
         cursorY,
         onComplete: () => {
             const url = searchEngine.replace("@QUERY@", encodeURIComponent(query!))
-            // TODO: window.location.href = url
-            console.log(`Navigate to: ${url}`)
+            window.location.href = url
         },
     })
 
