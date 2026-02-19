@@ -1,11 +1,16 @@
 import type { Metadata } from "next"
-import { Geist, Geist_Mono } from "next/font/google"
+import { Noto_Sans, Noto_Sans_SC, Geist_Mono } from "next/font/google"
 import { NuqsAdapter } from "nuqs/adapters/next/app"
+
 import "./globals.css"
 
-const geistSans = Geist({
-    variable: "--font-geist-sans",
+const notoSans = Noto_Sans({
+    variable: "--font-noto-sans",
     subsets: ["latin"],
+})
+
+const notoSansSC = Noto_Sans_SC({
+    variable: "--font-noto-sans-sc",
 })
 
 const geistMono = Geist_Mono({
@@ -31,7 +36,9 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+            <body
+                className={`${notoSans.variable} ${notoSansSC.variable} ${geistMono.variable} antialiased`}
+            >
                 <NuqsAdapter>{children}</NuqsAdapter>
             </body>
         </html>
