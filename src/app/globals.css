@@ -26,11 +26,13 @@ body {
     @apply
         flex flex-col items-center justify-center
 
+        mx-auto
         px-4
         light:bg-slate-50
         dark:bg-slate-950
 
-        min-h-dvh;
+        min-h-dvh
+        max-w-3xl;
 }
 
 #app-title {
@@ -159,10 +161,11 @@ body {
         self-center
 
         rounded-lg border px-5 py-5
-        light:border-blue-300 light:bg-slate-200
-        dark:border-blue-700 dark:bg-slate-900
+        light:border-yellow-500 light:bg-yellow-100
+        dark:border-yellow-600 dark:bg-yellow-950
 
-        max-w-lg
+        w-full
+        max-w-md
 
         text-center text-lg
         light:text-slate-800
