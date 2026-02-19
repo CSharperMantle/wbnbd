@@ -1,8 +1,9 @@
 "use client"
 
-import { useState, useEffect, RefObject } from "react"
-import { animate } from "framer-motion"
 import type { MotionValue } from "framer-motion"
+import { animate } from "framer-motion"
+import { RefObject, useEffect, useState } from "react"
+
 import isClient from "@/utils/isClient"
 
 type Phase = "idle" | "moving-to-input" | "typing" | "moving-to-button" | "hovering" | "click"

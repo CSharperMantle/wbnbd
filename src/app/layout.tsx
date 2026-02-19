@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { Noto_Sans, Noto_Sans_SC, Geist_Mono } from "next/font/google"
+import { Geist_Mono, Noto_Sans, Noto_Sans_SC } from "next/font/google"
 import { NuqsAdapter } from "nuqs/adapters/next/app"
 
 import "./globals.css"

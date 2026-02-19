@@ -1,7 +1,8 @@
 "use client"
 
 import { useQueryState } from "nuqs"
-import { messages, Locale } from "./messages"
+
+import { Locale, messages } from "./messages"
 
 export const useLocale = () => {
     const [locale] = useQueryState("lang")

@@ -79,7 +79,7 @@ body {
 }
 
 #app-caption {
-    @apply  max-w-lg self-center rounded-lg border border-blue-300 bg-slate-200 px-5 py-5 text-center text-lg text-slate-800;
+    @apply max-w-lg self-center rounded-lg border border-blue-300 bg-slate-200 px-5 py-5 text-center text-lg text-slate-800;
 }
 
 #app-cursor {
