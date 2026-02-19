@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect, RefObject } from "react"
+import isClient from "@/utils/isClient"
 
 type Phase = "idle" | "moving" | "typing" | "clicking"
 
@@ -21,13 +22,10 @@ export const usePlayback = ({
 }: UsePlaybackProps) => {
     const [phase, setPhase] = useState<Phase>("idle")
     const [displayText, setDisplayText] = useState("")
-    const [cursorPos, setCursorPos] = useState({
-        x: -50,
-        y: window?.innerHeight || 800,
-    })
+    const [cursorPos, setCursorPos] = useState({ x: -50, y: isClient() ? window.innerHeight : 800 })
 
     useEffect(() => {
-        if (!enabled || typeof window === "undefined") return
+        if (!enabled || !isClient()) return
 
         const prefersReducedMotion = window.matchMedia(
             "(prefers-reduced-motion: reduce)"
