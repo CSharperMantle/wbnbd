@@ -1,4 +1,5 @@
 import type { NextConfig } from "next"
+import createNextIntlPlugin from "next-intl/plugin"
 
 const normalizeBasePath = (value: string | undefined) => {
     if (!value) return ""
@@ -20,4 +21,6 @@ const nextConfig: NextConfig = {
     assetPrefix: basePath || undefined,
 }
 
-export default nextConfig
+const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts")
+
+export default withNextIntl(nextConfig)

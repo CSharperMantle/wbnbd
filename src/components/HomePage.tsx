@@ -2,28 +2,23 @@
 
 import { useMotionValue } from "framer-motion"
 import { Check, Copy, Search } from "lucide-react"
+import { useLocale, useTranslations } from "next-intl"
 import { useQueryState } from "nuqs"
 import { useRef, useState } from "react"
 
 import { Cursor } from "@/components/Cursor"
 import { usePlayback } from "@/hooks/usePlayback"
-import { useLocale } from "@/i18n/useLocale"
+import normalizeBasePath from "@/utils/normalizeBasePath"
 
 const QUERY_PLACEHOLDER = "@QUERY@"
 const DEFAULT_ENGINE = `https://www.baidu.com/s?wd=${QUERY_PLACEHOLDER}`
 const COPY_TIMEOUT = 2000
 
-const normalizeBasePath = (value: string | undefined) => {
-    if (!value) return ""
-    const trimmed = value.trim()
-    if (!trimmed || trimmed === "/") return ""
-    return `/${trimmed.replace(/^\/+|\/+$/g, "")}`
-}
-
 const APP_BASE_PATH = normalizeBasePath(process.env.NEXT_PUBLIC_BASE_PATH)
 
 export const HomePage = () => {
-    const { t } = useLocale()
+    const t = useTranslations("HomePage")
+    const locale = useLocale()
 
     const [query] = useQueryState("q")
     const [engine] = useQueryState("e")
@@ -62,7 +57,10 @@ export const HomePage = () => {
         if (engineValue.trim() && engineValue !== DEFAULT_ENGINE) {
             params.set("e", engineValue)
         }
-        const url = new URL(`${APP_BASE_PATH}/?${params.toString()}`, window.location.origin).toString()
+        const url = new URL(
+            `${APP_BASE_PATH}/${locale}/?${params.toString()}`,
+            window.location.origin
+        ).toString()
         setGeneratedUrl(url)
     }
 
@@ -77,19 +75,19 @@ export const HomePage = () => {
         switch (phase) {
             case "moving-to-input":
             case "typing":
-                return t.step1
+                return t("step1")
             case "moving-to-button":
-                return t.step2
+                return t("step2")
             case "hovering":
             case "click":
-                return t.step3
+                return t("step3")
         }
     }
 
     return (
         <div id="app-shell">
-            <h1 id="app-title">{t.title}</h1>
-            <h2 id="app-subtitle">{t.subtitle}</h2>
+            <h1 id="app-title">{t("title")}</h1>
+            <h2 id="app-subtitle">{t("subtitle")}</h2>
             <div id="app-form">
                 <div id="app-search-bar">
                     <input
@@ -97,7 +95,7 @@ export const HomePage = () => {
                         type="text"
                         value={isPlayback ? displayText : inputValue}
                         onChange={(e) => !isPlayback && setInputValue(e.target.value)}
-                        placeholder={t.placeholder}
+                        placeholder={t("placeholder")}
                         id="app-search-input"
                         readOnly={isPlayback}
                     />
@@ -110,7 +108,7 @@ export const HomePage = () => {
                         id="app-search-button"
                     >
                         <Search size={18} />
-                        {t.search}
+                        {t("search")}
                     </button>
                 </div>
 
@@ -119,7 +117,7 @@ export const HomePage = () => {
                         type="text"
                         value={engineValue}
                         onChange={(e) => setEngineValue(e.target.value)}
-                        placeholder={t.enginePlaceholder}
+                        placeholder={t("enginePlaceholder")}
                         id="app-engine-input"
                     />
                 )}
@@ -127,7 +125,11 @@ export const HomePage = () => {
                 {generatedUrl && (
                     <div id="app-generated-box">
                         <input type="text" value={generatedUrl} readOnly id="app-generated-input" />
-                        <button onClick={handleCopy} id="app-copy-button" aria-label="Copy link">
+                        <button
+                            onClick={handleCopy}
+                            id="app-copy-button"
+                            aria-label={t("copyLink")}
+                        >
                             {copied ? <Check size={18} /> : <Copy size={18} />}
                         </button>
                     </div>

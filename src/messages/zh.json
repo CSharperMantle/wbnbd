@@ -1,0 +1,16 @@
+{
+    "HomePage": {
+        "title": "WBNBD",
+        "subtitle": "我帮你百度",
+        "placeholder": "输入关键词",
+        "enginePlaceholder": "自定义搜索引擎 URL（关键词处使用 @QUERY@ 占位，不填默认百度）",
+        "search": "搜索一下",
+        "step1": "第一步：输入你的问题",
+        "step2": "第二步：点击搜索按钮",
+        "step3": "就是这么简单！",
+        "copyLink": "复制链接",
+        "redirecting": "正在跳转到你的语言版本...",
+        "switchToZh": "前往中文",
+        "switchToEn": "Go to English"
+    }
+}
