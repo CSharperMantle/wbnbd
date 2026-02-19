@@ -24,7 +24,7 @@ body {
 
 #app-shell {
     @apply
-        flex flex-col items-center justify-center
+        flex flex-col
 
         mx-auto
         px-4
@@ -35,11 +35,18 @@ body {
         max-w-3xl;
 }
 
+#app-main {
+    @apply
+        flex flex-1 flex-col items-center justify-center;
+}
+
 #app-title {
     @apply
         mb-2
 
-        text-3xl font-semibold tracking-tight sm:text-5xl
+        text-3xl font-semibold tracking-tight
+        sm:text-5xl
+        text-center
         light:text-slate-900
         dark:text-slate-100;
 }
@@ -48,7 +55,9 @@ body {
     @apply
         mb-6 sm:mb-8
 
-        text-lg sm:text-2xl
+        text-lg
+        sm:text-2xl
+        text-center
         light:text-slate-700
         dark:text-slate-300;
 }
@@ -176,4 +185,45 @@ body {
     @apply
         light:fill-slate-900 light:text-slate-50
         dark:fill-slate-100 dark:text-slate-950;
+}
+
+#app-footer {
+    @apply
+        flex items-center justify-center
+        sm:flex-row sm:gap-0
+        flex-col gap-2
+
+        py-4
+
+        text-xs sm:text-sm
+        light:text-slate-600
+        dark:text-slate-400;
+
+}
+
+#app-footer > a {
+    @apply
+        sm:border-r-2 sm:border-slate-500 sm:border-solid
+        sm:px-4
+
+        transition-colors duration-100
+        light:hover:text-blue-700
+        dark:hover:text-blue-400
+        underline
+        text-center;
+}
+
+#app-footer > a:last-child {
+    @apply
+        sm:border-r-0
+        sm:pr-0;
+}
+
+#app-footer > .app-footer-sep {
+    @apply
+        hidden
+        sm:inline
+
+        text-slate-500
+        dark:text-slate-600;
 }

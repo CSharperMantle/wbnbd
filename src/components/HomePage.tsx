@@ -86,57 +86,77 @@ export const HomePage = () => {
 
     return (
         <div id="app-shell">
-            <h1 id="app-title">{t("title")}</h1>
-            <h2 id="app-subtitle">{t("subtitle")}</h2>
-            <div id="app-form">
-                <div id="app-search-bar">
-                    <input
-                        ref={inputRef}
-                        type="text"
-                        value={isPlayback ? displayText : inputValue}
-                        onChange={(e) => !isPlayback && setInputValue(e.target.value)}
-                        placeholder={t("placeholder")}
-                        id="app-search-input"
-                        readOnly={isPlayback}
-                    />
-                    <button
-                        ref={buttonRef}
-                        onClick={isPlayback ? undefined : handleGenerate}
-                        disabled={isPlayback}
-                        data-hovered={buttonVisualState === "hover"}
-                        data-clicked={buttonVisualState === "active"}
-                        id="app-search-button"
-                    >
-                        <Search size={18} />
-                        {t("search")}
-                    </button>
-                </div>
-
-                {!isPlayback && (
-                    <input
-                        type="text"
-                        value={engineValue}
-                        onChange={(e) => setEngineValue(e.target.value)}
-                        placeholder={t("enginePlaceholder")}
-                        id="app-engine-input"
-                    />
-                )}
-
-                {generatedUrl && (
-                    <div id="app-generated-box">
-                        <input type="text" value={generatedUrl} readOnly id="app-generated-input" />
+            <main id="app-main">
+                <h1 id="app-title">{t("title")}</h1>
+                <h2 id="app-subtitle">{t("subtitle")}</h2>
+                <div id="app-form">
+                    <div id="app-search-bar">
+                        <input
+                            ref={inputRef}
+                            type="text"
+                            value={isPlayback ? displayText : inputValue}
+                            onChange={(e) => !isPlayback && setInputValue(e.target.value)}
+                            placeholder={t("placeholder")}
+                            id="app-search-input"
+                            readOnly={isPlayback}
+                        />
                         <button
-                            onClick={handleCopy}
-                            id="app-copy-button"
-                            aria-label={t("copyLink")}
+                            ref={buttonRef}
+                            onClick={isPlayback ? undefined : handleGenerate}
+                            disabled={isPlayback}
+                            data-hovered={buttonVisualState === "hover"}
+                            data-clicked={buttonVisualState === "active"}
+                            id="app-search-button"
                         >
-                            {copied ? <Check size={18} /> : <Copy size={18} />}
+                            <Search size={18} />
+                            {t("search")}
                         </button>
                     </div>
-                )}
 
-                {isPlayback && phase !== "idle" && <p id="app-caption">{selectCaption()}</p>}
-            </div>
+                    {!isPlayback && (
+                        <input
+                            type="text"
+                            value={engineValue}
+                            onChange={(e) => setEngineValue(e.target.value)}
+                            placeholder={t("enginePlaceholder")}
+                            id="app-engine-input"
+                        />
+                    )}
+
+                    {generatedUrl && (
+                        <div id="app-generated-box">
+                            <input
+                                type="text"
+                                value={generatedUrl}
+                                readOnly
+                                id="app-generated-input"
+                            />
+                            <button
+                                onClick={handleCopy}
+                                id="app-copy-button"
+                                aria-label={t("copyLink")}
+                            >
+                                {copied ? <Check size={18} /> : <Copy size={18} />}
+                            </button>
+                        </div>
+                    )}
+
+                    {isPlayback && phase !== "idle" && <p id="app-caption">{selectCaption()}</p>}
+                </div>
+            </main>
+
+            <footer id="app-footer">
+                <a href="https://github.com/CSharperMantle/wbnbd" target="_blank" rel="noreferrer">
+                    https://github.com/CSharperMantle/wbnbd
+                </a>
+                <a
+                    href="https://github.com/CSharperMantle/wbnbd/blob/main/LICENSE"
+                    target="_blank"
+                    rel="noreferrer"
+                >
+                    BSD-3-Clause
+                </a>
+            </footer>
 
             {isPlayback && <Cursor x={cursorX} y={cursorY} visible={phase !== "idle"} />}
         </div>
