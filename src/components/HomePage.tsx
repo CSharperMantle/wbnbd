@@ -65,19 +65,18 @@ export const HomePage = () => {
     }
 
     return (
-        <div className="app-shell">
-            <h1 className="app-title">{t.title}</h1>
-            <p className="app-subtitle">{t.subtitle}</p>
-
-            <div className="app-form">
-                <div className="app-search-bar">
+        <div id="app-shell">
+            <h1 id="app-title">{t.title}</h1>
+            <p id="app-subtitle">{t.subtitle}</p>
+            <div id="app-form">
+                <div id="app-search-bar">
                     <input
                         ref={inputRef}
                         type="text"
                         value={isPlayback ? displayText : inputValue}
                         onChange={(e) => !isPlayback && setInputValue(e.target.value)}
                         placeholder={t.placeholder}
-                        className="app-search-input"
+                        id="app-search-input"
                         readOnly={isPlayback}
                     />
                     <button
@@ -86,7 +85,7 @@ export const HomePage = () => {
                         disabled={isPlayback}
                         data-hovered={buttonVisualState === "hover"}
                         data-clicked={buttonVisualState === "active"}
-                        className="app-search-button"
+                        id="app-search-button"
                     >
                         <Search size={18} />
                         {t.search}
@@ -99,30 +98,21 @@ export const HomePage = () => {
                         value={engineValue}
                         onChange={(e) => setEngineValue(e.target.value)}
                         placeholder={t.enginePlaceholder}
-                        className="app-engine-input"
+                        id="app-engine-input"
                     />
                 )}
 
                 {generatedUrl && (
-                    <div className="app-generated-box">
-                        <input
-                            type="text"
-                            value={generatedUrl}
-                            readOnly
-                            className="app-generated-input"
-                        />
-                        <button
-                            onClick={handleCopy}
-                            className="app-copy-button"
-                            aria-label="Copy link"
-                        >
+                    <div id="app-generated-box">
+                        <input type="text" value={generatedUrl} readOnly id="app-generated-input" />
+                        <button onClick={handleCopy} id="app-copy-button" aria-label="Copy link">
                             {copied ? <Check size={18} /> : <Copy size={18} />}
                         </button>
                     </div>
                 )}
 
                 {isPlayback && phase !== "idle" && (
-                    <p className="app-caption">
+                    <p id="app-caption">
                         {phase === "moving" && t.step1}
                         {phase === "typing" && t.step2}
                         {phase === "clicking" && t.step3}

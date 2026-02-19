@@ -1,4 +1,7 @@
 {
     "git.enabled": false,
-    "editor.rulers": [100]
+    "editor.rulers": [100],
+    "files.associations": {
+        "src/**/*.css": "tailwindcss"
+    }
 }
