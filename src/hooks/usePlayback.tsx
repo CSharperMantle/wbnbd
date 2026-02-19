@@ -5,7 +5,7 @@ import { animate } from "framer-motion"
 import type { MotionValue } from "framer-motion"
 import isClient from "@/utils/isClient"
 
-type Phase = "idle" | "moving" | "typing" | "clicking"
+type Phase = "idle" | "moving-to-input" | "typing" | "moving-to-button" | "hovering" | "click"
 type ButtonVisualState = "idle" | "hover" | "active"
 
 interface UsePlaybackProps {
@@ -16,6 +16,10 @@ interface UsePlaybackProps {
     cursorX: MotionValue<number>
     cursorY: MotionValue<number>
     onComplete: () => void
+}
+
+async function sleep(ms: number): Promise<void> {
+    return new Promise((resolve) => setTimeout(resolve, ms))
 }
 
 export const usePlayback = ({
@@ -35,7 +39,6 @@ export const usePlayback = ({
         if (!enabled || !isClient()) return
 
         let cancelled = false
-        const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
         const activeAnimations: Array<{ stop: () => void }> = []
 
         const animateCursorTo = async (x: number, y: number, duration: number) => {
@@ -56,33 +59,30 @@ export const usePlayback = ({
             cursorY.set(20)
             setButtonVisualState("idle")
             setDisplayText("")
-            await wait(250)
+            await sleep(100)
             if (cancelled) return
 
-            setPhase("moving")
-
+            setPhase("moving-to-input")
             const inputRect = inputRef.current?.getBoundingClientRect()
             if (inputRect) {
                 await animateCursorTo(
                     inputRect.left + 16,
                     inputRect.top + inputRect.height / 2,
-                    0.85
+                    1.5
                 )
             }
             if (cancelled) return
 
             setPhase("typing")
-
             for (let i = 0; i <= query.length; i++) {
-                if (cancelled) return
                 setDisplayText(query.slice(0, i))
-                await wait(75)
+                await sleep(100)
+                if (cancelled) return
             }
+            await sleep(220)
             if (cancelled) return
 
-            await wait(220)
-            setPhase("moving")
-
+            setPhase("moving-to-button")
             const buttonRect = buttonRef.current?.getBoundingClientRect()
             if (buttonRect) {
                 console.debug(
@@ -91,16 +91,17 @@ export const usePlayback = ({
                 await animateCursorTo(
                     buttonRect.left + buttonRect.width / 2,
                     buttonRect.top + buttonRect.height / 2,
-                    0.75
+                    3
                 )
             }
             if (cancelled) return
 
+            setPhase("hovering")
             setButtonVisualState("hover")
-            await wait(160)
+            await sleep(2000)
             if (cancelled) return
 
-            setPhase("clicking")
+            setPhase("click")
             setButtonVisualState("active")
             onComplete()
         }

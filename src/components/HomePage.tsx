@@ -64,6 +64,19 @@ export const HomePage = () => {
         setTimeout(() => setCopied(false), COPY_TIMEOUT)
     }
 
+    const selectCaption = () => {
+        switch (phase) {
+            case "moving-to-input":
+            case "typing":
+                return t.step1
+            case "moving-to-button":
+                return t.step2
+            case "hovering":
+            case "click":
+                return t.step3
+        }
+    }
+
     return (
         <div id="app-shell">
             <h1 id="app-title">{t.title}</h1>
@@ -111,13 +124,7 @@ export const HomePage = () => {
                     </div>
                 )}
 
-                {isPlayback && phase !== "idle" && (
-                    <p id="app-caption">
-                        {phase === "moving" && t.step1}
-                        {phase === "typing" && t.step2}
-                        {phase === "clicking" && t.step3}
-                    </p>
-                )}
+                {isPlayback && phase !== "idle" && <p id="app-caption">{selectCaption()}</p>}
             </div>
 
             {isPlayback && <Cursor x={cursorX} y={cursorY} visible={phase !== "idle"} />}

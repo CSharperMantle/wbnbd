@@ -5,9 +5,9 @@ export const messages = {
         placeholder: "Type your search query...",
         enginePlaceholder: `Custom search engine URL (use @QUERY@ as keyword placeholder)`,
         search: "Search",
-        step1: "Step 1: Move your cursor to the search box",
-        step2: "Step 2: Type your question",
-        step3: "Step 3: Click search!",
+        step1: "Step 1: Type your question",
+        step2: "Step 2: Click the search button",
+        step3: "It really is that simple!",
     },
     zh: {
         title: "WBNBD",
@@ -15,9 +15,9 @@ export const messages = {
         placeholder: "输入你的搜索内容",
         enginePlaceholder: `自定义搜索引擎 URL（关键词处使用 @QUERY@ 占位）`,
         search: "搜索一下",
-        step1: "第一步：移动光标到搜索框",
-        step2: "第二步：输入你的问题",
-        step3: "第三步：点击搜索！",
+        step1: "第一步：输入你的问题",
+        step2: "第二步：点击搜索按钮",
+        step3: "就是这么简单！",
     },
 } as const
 
