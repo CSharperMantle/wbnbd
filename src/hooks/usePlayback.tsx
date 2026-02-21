@@ -56,6 +56,11 @@ export default function usePlayback({
         }
 
         const startAnimation = async () => {
+            setPhase("idle")
+            setDisplayText("")
+            setButtonVisualState("idle")
+            if (cancelled) return
+
             /*
              * HACK: The animator gets inputRect's position on the fly. So we need to first show
              * the note box. Otherwise the layout will change, and the fetched position will be
