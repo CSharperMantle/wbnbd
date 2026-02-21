@@ -13,7 +13,7 @@ const detectLocale = () => {
     return candidates.some((value) => value.startsWith("en")) ? "en" : "zh"
 }
 
-export default function Page() {
+export default function RootPage() {
     useEffect(() => {
         const locale = detectLocale()
         window.location.replace(`${APP_BASE_PATH}/${locale}/`)
@@ -21,13 +21,13 @@ export default function Page() {
 
     return (
         <main id="landing-main">
-            <p>Redirecting to your locale...</p>
+            <p lang="en">Redirecting to your locale...</p>
             <p>
-                <a href={`${APP_BASE_PATH}/zh/`} className="underline">
+                <a lang="zh" href={`${APP_BASE_PATH}/zh/`} className="underline">
                     中文
                 </a>
                 <span className="px-2">|</span>
-                <a href={`${APP_BASE_PATH}/en/`} className="underline">
+                <a lang="en" href={`${APP_BASE_PATH}/en/`} className="underline">
                     English
                 </a>
             </p>

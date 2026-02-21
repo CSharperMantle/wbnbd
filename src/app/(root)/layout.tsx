@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import { Geist_Mono, Noto_Sans, Noto_Sans_SC } from "next/font/google"
 
-import "./globals.css"
+import "../globals.css"
 
 const notoSans = Noto_Sans({
     variable: "--font-noto-sans",
@@ -28,13 +28,13 @@ export const metadata: Metadata = {
     },
 }
 
-export default function RootLayout({
+export default function RootRedirectLayout({
     children,
 }: Readonly<{
     children: React.ReactNode
 }>) {
     return (
-        <html lang="en">
+        <html lang="und">
             <body
                 className={`${notoSans.variable} ${notoSansSC.variable} ${geistMono.variable} antialiased`}
             >
