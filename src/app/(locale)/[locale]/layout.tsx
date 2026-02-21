@@ -1,17 +1,12 @@
 import type { Metadata } from "next"
 import { hasLocale, NextIntlClientProvider } from "next-intl"
-import { getMessages, setRequestLocale } from "next-intl/server"
+import { getMessages, getTranslations, setRequestLocale } from "next-intl/server"
 import { Geist_Mono, Noto_Sans, Noto_Sans_SC } from "next/font/google"
 import { notFound } from "next/navigation"
 
 import { routing } from "@/i18n/routing"
 
 import "./styles.tw.css"
-
-interface LocaleLayoutProps {
-    children: React.ReactNode
-    params: Promise<{ locale: string }>
-}
 
 const notoSans = Noto_Sans({
     variable: "--font-noto-sans",
@@ -27,15 +22,26 @@ const geistMono = Geist_Mono({
     subsets: ["latin"],
 })
 
-export const metadata: Metadata = {
-    title: "WBNBD - 我帮你百度",
-    description:
-        "Let Me Baidu That For You - A passive-aggressive but helpful tool to teach people how to use search engines.",
-    openGraph: {
-        title: "WBNBD - 我帮你百度",
-        description: "Let Me Baidu That For You",
-        type: "website",
-    },
+export async function generateMetadata({
+    params,
+}: {
+    params: Promise<{ locale: string }>
+}): Promise<Metadata> {
+    const { locale } = await params
+    const t = await getTranslations({ locale, namespace: "Metadata" })
+
+    return {
+        title: `${t("title")} - ${t("subtitle")}`,
+        description: t("description"),
+        authors: [{ name: "Rong Bao", url: "https://csmantle.top/" }],
+        openGraph: {
+            title: `${t("title")} - ${t("subtitle")}`,
+            description: t("description"),
+            type: "website",
+            locale,
+            alternateLocale: routing.locales.filter((l) => l !== locale),
+        },
+    }
 }
 
 export function generateStaticParams() {
@@ -44,14 +50,18 @@ export function generateStaticParams() {
 
 export const dynamicParams = false
 
+interface LocaleLayoutProps {
+    children: React.ReactNode
+    params: Promise<{ locale: string }>
+}
+
 export default async function LocaleLayout({ children, params }: LocaleLayoutProps) {
     const { locale } = await params
-
     if (!hasLocale(routing.locales, locale)) {
         notFound()
     }
-
     setRequestLocale(locale)
+
     const messages = await getMessages()
 
     return (

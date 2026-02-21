@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { useEffect } from "react"
 
 import normalizeBasePath from "@/utils/normalizeBasePath"
@@ -25,13 +26,13 @@ export default function RootPage() {
             <p lang="zh">正在跳转到以你的语言显示的页面……</p>
             <hr id="landing-main-hr" />
             <p>
-                <a lang="zh" href={`${APP_BASE_PATH}/zh/`} className="underline">
+                <Link lang="zh" href="/zh/" className="underline">
                     中文
-                </a>
+                </Link>
                 <span className="px-2">|</span>
-                <a lang="en" href={`${APP_BASE_PATH}/en/`} className="underline">
+                <Link lang="en" href="/en/" className="underline">
                     English
-                </a>
+                </Link>
             </p>
         </main>
     )
