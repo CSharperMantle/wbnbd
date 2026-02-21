@@ -1,0 +1,36 @@
+/* prettier-ignore */
+
+@import "tailwindcss";
+
+@custom-variant light (@media (prefers-color-scheme: light));
+@custom-variant dark (@media (prefers-color-scheme: dark));
+
+body {
+    @apply
+        light:bg-slate-50 light:text-slate-900
+        dark:bg-slate-950 dark:text-slate-100;
+    font-family: var(--font-noto-sans), var(--font-noto-sans-sc), sans-serif;
+}
+
+#landing-main {
+    @apply
+        flex flex-col items-center justify-center
+        gap-2
+
+        mx-auto
+        px-4
+
+        min-h-dvh
+        max-w-lg
+
+        text-center text-sm
+        light:text-slate-700
+        dark:text-slate-300;
+}
+
+#landing-main-hr {
+    @apply
+        border-t border-slate-300/50
+
+        w-full max-w-xs;
+}

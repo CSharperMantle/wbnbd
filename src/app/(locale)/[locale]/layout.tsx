@@ -4,9 +4,9 @@ import { getMessages, setRequestLocale } from "next-intl/server"
 import { Geist_Mono, Noto_Sans, Noto_Sans_SC } from "next/font/google"
 import { notFound } from "next/navigation"
 
-import "../../globals.css"
-
 import { routing } from "@/i18n/routing"
+
+import "./styles.tw.css"
 
 interface LocaleLayoutProps {
     children: React.ReactNode

@@ -22,6 +22,8 @@ export default function RootPage() {
     return (
         <main id="landing-main">
             <p lang="en">Redirecting to your locale...</p>
+            <p lang="zh">正在跳转到以你的语言显示的页面……</p>
+            <hr id="landing-main-hr" />
             <p>
                 <a lang="zh" href={`${APP_BASE_PATH}/zh/`} className="underline">
                     中文

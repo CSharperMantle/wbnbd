@@ -8,9 +8,6 @@
         "step1": "第一步：输入你的问题",
         "step2": "第二步：点击搜索按钮",
         "step3": "就是这么简单！",
-        "copyLink": "复制链接",
-        "redirecting": "正在跳转到你的语言版本...",
-        "switchToZh": "前往中文",
-        "switchToEn": "Go to English"
+        "copyLink": "复制链接"
     }
 }
