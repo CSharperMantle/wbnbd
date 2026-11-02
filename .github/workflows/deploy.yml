@@ -44,6 +44,7 @@ jobs:
   deploy-gh-pages:
     environment:
       name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
     runs-on: ubuntu-latest
     needs: build
     steps:
@@ -52,13 +53,12 @@ jobs:
         with:
           name: app
           path: out
-      - name: Deploy to gh-pages
-        uses: peaceiris/actions-gh-pages@v4
+      - uses: actions/configure-pages@v6
+      - uses: actions/upload-pages-artifact@v5
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: gh-pages
-          publish_dir: ./out
-          force_orphan: true
+          path: out
+      - uses: actions/deploy-pages@v5
+        id: deploy
   deploy-self-hosted:
     environment:
       name: self-hosted
